@@ -30,15 +30,13 @@ class AuthorService:
 
     def update_author(self, author_id: int, author_data: AuthorCreate) -> Optional[Author]:
         db_author = self.get_author_by_id(author_id)
-        if db_author:
-            for key, value in author_data.dict().items():
-                setattr(db_author, key, value)
-            self.db.commit()
-            self.db.refresh(db_author)
+        for key, value in author_data.dict().items():
+            setattr(db_author, key, value)
+        self.db.commit()
+        self.db.refresh(db_author)
         return db_author
 
     def delete_author(self, author_id: int):
         db_author = self.get_author_by_id(author_id)
-        if db_author:
-            self.db.delete(db_author)
-            self.db.commit()
+        self.db.delete(db_author)
+        self.db.commit()

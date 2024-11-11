@@ -1,6 +1,6 @@
 # app/api/v1/endpoints/book.py
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
 from crud.book_service import BookService
@@ -10,7 +10,7 @@ from schemas.book import BookCreate, BookRead
 router = APIRouter()
 
 
-@router.post("/", response_model=BookRead)
+@router.post("/", response_model=BookRead, status_code=status.HTTP_201_CREATED)
 def create_book(book: BookCreate, db: Session = Depends(get_db)):
     book_service = BookService(db)
     return book_service.create_book(book)
@@ -19,7 +19,7 @@ def create_book(book: BookCreate, db: Session = Depends(get_db)):
 @router.get("/{book_id}", response_model=BookRead)
 def read_book(book_id: int, db: Session = Depends(get_db)):
     book_service = BookService(db)
-    db_book = book_service.get_book(book_id)
+    db_book = book_service.get_book_by_id(book_id)
     return db_book
 
 

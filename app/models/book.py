@@ -13,5 +13,5 @@ class Book(Base):
     genre = Column(String, index=True)
     year_published = Column(Integer)
 
-    # Relationship with the author
     author = relationship("Author", back_populates="books")
+    book_usages = relationship("BookUsage", back_populates="book")

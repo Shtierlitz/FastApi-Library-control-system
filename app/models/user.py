@@ -1,5 +1,7 @@
 # app/models/user.py
 from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy.orm import relationship
+
 from db.base import Base
 
 
@@ -10,3 +12,5 @@ class User(Base):
     name = Column(String, index=True, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     date_registered = Column(DateTime, server_default=func.now())
+
+    book_usages = relationship("BookUsage", back_populates="user")

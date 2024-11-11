@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from api.v1.endpoints import book, author, user
+from api.v1.endpoints import book, author, user, book_usage
 from core.exceptions import APIException
 from pytz import timezone
 
@@ -9,6 +9,7 @@ app = FastAPI()
 app.include_router(book.router, prefix="/api/v1/books", tags=["Books"])
 app.include_router(author.router, prefix="/api/v1/authors", tags=["Authors"])
 app.include_router(user.router, prefix="/api/v1/users", tags=["Users"])
+app.include_router(book_usage.router, prefix="/api/v1/book_usages", tags=["Book Usages"])
 
 
 @app.exception_handler(APIException)

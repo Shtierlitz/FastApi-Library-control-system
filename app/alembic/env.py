@@ -12,6 +12,7 @@ from db.base import Base
 from models.user import User
 from models.book import Book
 from models.author import Author
+from models.book_usage import BookUsage
 
 load_dotenv()
 

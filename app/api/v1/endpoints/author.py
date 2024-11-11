@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
 from crud.author_service import AuthorService
@@ -8,7 +8,7 @@ from schemas.author import AuthorRead, AuthorCreate
 router = APIRouter()
 
 
-@router.post("/", response_model=AuthorRead)
+@router.post("/", response_model=AuthorRead, status_code=status.HTTP_201_CREATED)
 def create_author(author: AuthorCreate, db: Session = Depends(get_db)):
     book_service = AuthorService(db)
     return book_service.create_author(author)
